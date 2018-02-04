@@ -163,6 +163,12 @@ define(['angular','clipboard'],function(angular,clipboard){
 
 	  	} 
 
+		$scope.todos = [];
+		$scope.filteredTodos = [];
+
+ 		$scope.itemsPerPage = 8;
+	  	$scope.currentPage = 1;
+
 	  
 	  	Playlist.Get( $stateParams.id ).then(function successCallback(response){
 	  			$scope.model.name = response.data.name;
@@ -171,9 +177,6 @@ define(['angular','clipboard'],function(angular,clipboard){
 			}, function errorCallback(response) {});
 	  	
 	
-			$scope.todos = [];
-			$scope.filteredTodos = [];
-
 
 	  	$scope.search = function()
 	  	{	if($scope.model.query.length > 0)
@@ -233,7 +236,7 @@ define(['angular','clipboard'],function(angular,clipboard){
               return item.id !== id;
           	});
 
-			Playlist.AddVideo( $stateParams.id,id).then(function successCallback(response){
+			Playlist.AddVideo( id,$stateParams.id).then(function successCallback(response){
 	  			$state.go('root.playlist_videos',{'id': $stateParams.id});
 			}, function errorCallback(response) {});
           	
@@ -270,7 +273,9 @@ define(['angular','clipboard'],function(angular,clipboard){
 	  		'query':'',
 	  		'id':$stateParams.id,
 	  	} 
-
+ 
+	  	$scope.itemsPerPage = 8;
+	  	$scope.currentPage = 1;
 
 	  	$scope.todos = [];
 		$scope.filteredTodos = [];
@@ -309,7 +314,7 @@ define(['angular','clipboard'],function(angular,clipboard){
           	{        
               return item.id !== id;
           	});
-          	Playlist.RemoveVideo( $stateParams.id,id).then(function successCallback(response){
+          	Playlist.RemoveVideo( id,$stateParams.id).then(function successCallback(response){
 	  			$scope.makeTodos();
 			}, function errorCallback(response) {});
 
