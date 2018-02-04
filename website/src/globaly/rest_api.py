@@ -40,7 +40,7 @@ class GlobalyTagsSerializer(serializers.HyperlinkedModelSerializer):
 def tag_list(request):
 
     if request.method == 'GET':
-        tags = GlobalyTags.objects.all()
+        tags = GlobalyTags.objects.filter(autor=request.user)
         serializer = GlobalyTagsSerializer(
             tags, 
             many=True,
