@@ -60,13 +60,34 @@ angular.module('app.services.playlist', [] )
                 'data': {'id':id,}                 
             });
         },
-        'Delete': function(id){
+        'RemoveVideo': function(id,playlist_id){
             return this.request({
                 'method': "DELETE",
-                'url': "/playlists/", 
-                'data': {'id':id}             
+                'url': "/playlist/remove/video/", 
+                'data': {'id':id,'playlist_id':playlist_id}             
             });
         },
+        'AddVideo': function(id,playlist_ids){
+            return this.request({
+                'method': "POST",
+                'url': "/playlist/add/video/", 
+                'data': {'id':id,'playlist_ids':playlist_ids}             
+            });
+        },
+        'Videos': function(playlist_id){
+            return this.request({
+                'method': "POST",
+                'url': "/playlist/videos/", 
+                'data': {'post_type':'video','playlist_id':playlist_id}             
+            });
+        },
+
+
+       
+
+
+        
+
            
         'initialize': function(url){
             this.API_URL = url;         

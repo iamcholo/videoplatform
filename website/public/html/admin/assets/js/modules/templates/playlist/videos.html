@@ -6,7 +6,7 @@
 	        <div class="app-heading app-heading-small">
 	            <div class="title">
 	                <h5>{{ 'PLAYLIST_LABEL' | translate}}</h5>
-	                <p>{{ 'ADD_VIDEO_LABEL' | translate}}</p>
+	                <p>{{ 'VIDEO_PLURAL_LABEL' | translate}}</p>
 	            </div>
 	        </div>
 	        <!-- END HEADING -->
@@ -34,10 +34,10 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                                <a ui-sref="root.playlist_videos({id:model.id})" class="btn btn-primary">
-                                    <i class="fa fa-plus"></i>                                 
-                                    {{ 'VIDEO_PLURAL_LABEL' | translate}}
-                                </a>
+                            <a ui-sref="root.playlist_add_video({id:model.id})" class="btn btn-primary">
+                                <i class="fa fa-plus"></i>                                 
+                                {{ 'ADD_VIDEO_LABEL' | translate}}
+                            </a>
                         </div>
                     </div>
 
@@ -73,9 +73,9 @@
 
                              
                                 <td>
-                                    <a ng-click ="AddVideo(item.id)"  class="btn btn-primary">
-                                        <i class="fa fa-plus"></i>
-                                        {{ 'ADD_VIDEO_LABEL' | translate}}
+                                    <a ng-click = "removeVideo(item.id)"  class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                        
                                     </a>
                                    
                                 </td>

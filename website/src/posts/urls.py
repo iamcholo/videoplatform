@@ -10,6 +10,12 @@ urlpatterns = [
 	url(r'^playlists/{0,1}$', views.playlist_list),
 	url(r'^playlist/{0,1}$', views.playlist),
 	url(r'^playlist/details/{0,1}$', views.playlist_details),
+	url(r'^playlist/add/video/{0,1}$', views.add_to_playlist),
+	url(r'^playlist/remove/video/{0,1}$', views.remove_from_playlist),
+	url(r'^playlist/videos/{0,1}$', views.playlist_video_list),
+
+
+
 	url(r'^post/details/{0,1}$', views.post_details),
 	url(r'^pages/{0,1}$', views.post_list),
 	url(r'^page/{0,1}$', views.post),

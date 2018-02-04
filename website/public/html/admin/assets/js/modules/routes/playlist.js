@@ -43,7 +43,20 @@ define(['angular'],function(angular){
               templateUrl: '/admin/assets/js/modules/templates/playlist/edit.html',
             } 
           }
-        }).state('root.playlist_add_video', {
+        })
+      .state('root.playlist_videos', {
+           url: '/playlist/videos/{id:int}',
+            params: {
+              id:{ value: 0}
+            },
+          views: {
+          'content': {
+              controller: 'PlaylistVideosCtrl',
+              templateUrl: '/admin/assets/js/modules/templates/playlist/videos.html',
+            } 
+          }
+        })
+        .state('root.playlist_add_video', {
            url: '/playlist/add/video/{id:int}',
             params: {
               id:{ value: 0}

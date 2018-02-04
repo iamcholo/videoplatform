@@ -93,7 +93,7 @@ define(['angular','jquery'],function(angular,jquery){
 	  	$scope.model = {
 	  		'title':'',
 	  		'content':'',
-	  		'image':'',
+	  		'featured_image':null,
 	  		'publish': true,
 	  		'publish_date': null,
 	  		'is_featured': true,
@@ -112,6 +112,7 @@ define(['angular','jquery'],function(angular,jquery){
 	  			$scope.model.categories_lists = response.data.categories_lists;	 
 	  			$scope.model.publish_date = response.data.publish_date;
 	  			$scope.model.publish = response.data.publish;
+	  			$scope.model.featured_image = response.data.featured_image;
 	  			$scope.model.is_featured = response.data.is_featured;
 	  			$scope.model.is_on_feed = response.data.is_on_feed;
 	  			$scope.model.content = response.data.content;
