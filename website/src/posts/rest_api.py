@@ -381,7 +381,7 @@ def category(request):
 def playlist_list(request):
 
     if request.method == 'POST':
-        playlist = Playlist.objects.all()
+        playlist = Playlist.objects.filter( autor=request.user,)
         serializer = PlaylistSerializer(
             playlist, 
             many=True,
@@ -396,7 +396,8 @@ def playlist_details(request):
         try:
             pk = request.data.get('id')
             playlist = Playlist.objects.get(
-                pk=pk
+                pk=pk,
+                 autor=request.user,
             )
         except Playlist.DoesNotExist:
             return Response(
@@ -422,7 +423,7 @@ def playlist(request):
             context={'request': request}
         )
         if serializer.is_valid():
-            serializer.save()
+            serializer.save( autor=request.user)
             return Response(serializer.data)
         return Response(
             serializer.errors, 

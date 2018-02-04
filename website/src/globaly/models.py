@@ -10,6 +10,7 @@ from utilities.image_base64 import encode_image
 from utilities.models import BaseDateTime
 from utilities.models import BaseSeo
 from utilities.models import BasePublish
+from user.models import CustomUser as User
 
 class ItemManager(models.Manager):
     def get(self, *args, **kwargs):
@@ -109,7 +110,14 @@ def get_meta(instance):
     return None, None, None
 
 class GlobalyTags(BasePublish,BaseDateTime, BaseSeo):
-
+    autor = models.ForeignKey(
+            User,
+            verbose_name=_('AUTOR_LABEL'),
+            null=True,
+            blank=True,
+            on_delete=models.CASCADE,
+            related_name='globaly_tags_item_autor'
+        )
     name = models.CharField(
             _('NAME_LABEL'),
             max_length=255,

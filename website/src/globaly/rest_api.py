@@ -81,7 +81,7 @@ def tag(request):
             context={'request': request}
         )
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(autor=request.user)
             return Response(serializer.data)
         return Response(
             serializer.errors, 

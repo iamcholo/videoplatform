@@ -102,7 +102,14 @@ class PostCategory(MPTTModel, BaseDateTime, BasePublish, BaseSeo):
 
 
 class Playlist(BasePublish,BaseDateTime, BaseSeo):
-
+    autor = models.ForeignKey(
+            User,
+            verbose_name=_('AUTOR_LABEL'),
+            null=True,
+            blank=True,
+            on_delete=models.CASCADE,
+            related_name='playlist_item_autor'
+        )
     name = models.CharField(
             _('NAME_LABEL'),
             max_length=255,
