@@ -24,6 +24,7 @@ urlpatterns = [
         name='archive'
     ),
     url(r'', include('posts.urls2')),
+    url(r'', include('video_stream.urls2')),
     url(r'^', include("sitemap.urls")),
     url(r'^', include("rss.urls")),
     #url(r'^mediaframework/', include("media.urls")),
@@ -39,13 +40,22 @@ urlpatterns = [
         name='robots'
     ),
 
-    url(r'^(?P<page>\d+)/{0,1}$',
+    url(r'^ads\.txt$', 
+        TemplateView.as_view(
+            template_name='ads.txt', 
+            content_type= 'text/plain'
+        ),
+        name='robots'
+    ),
+
+    url(r'^(?P<slug>[0-9A-Za-z-_]+)/{0,1}$$',
         TemplateView.as_view(
             template_name='home.html', 
             content_type='text/html'
         ), 
         name='home'
-    ), 
+    ),
+
     url(r'^$',
         TemplateView.as_view(
             template_name='home.html', 
@@ -53,22 +63,9 @@ urlpatterns = [
         ), 
         name='home'
     ),
-    url(r'^(?P<slug>[-\w\d]+)/(?P<page>\d+)/{0,1}$',
-        TemplateView.as_view(
-         template_name='home.html', 
-         content_type='text/html'
-        ), 
-        name='page_details'
-    ),
 
-    url(r'^(?P<slug>[-\w\d]+)/{0,1}$',
-        TemplateView.as_view(
-         template_name='home.html', 
-         content_type='text/html'
-        ), 
-        name='page_details'
-    ),
-
+    
+   
   
 
 

@@ -22,7 +22,7 @@ INSTALLED_APPS = (
     'utilities',   
     'globaly',   
     'posts',
-
+    'video_stream',
   
     #'contact_form',
     'comments',   
