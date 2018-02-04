@@ -8,7 +8,7 @@
 	        <div class="app-heading app-heading-small">
 	            <div class="title">
 	                <h5>{{ 'MEDIA_LABEL' | translate}}</h5>
-	                <p>{{ 'IMAGE_PLURAL_LABEL' | translate}}</p>
+	                <p>{{ 'UPLOAD_LABEL' | translate}}</p>
 	            </div>
 	        </div>
 	        <!-- END HEADING -->
@@ -21,8 +21,69 @@
 		            	<div class="row">
 			               	<div class="col-md-12">
 			               		<dropzone confirm-action="makeTodos()"></dropzone>
-			                </div>		                    
-			           </div>
+
+			                </div>		          
+			                <div class=" clearfix">
+					    		<div class="form-group">
+					    		<br>
+					    		<br>
+					                <label class="control-label">{{ 'TITLE_LABEL' | translate}}</label>
+					                <input class="form-control"  ng-model="model.title" type="text">
+					                <br>
+					            </div>
+					        </div>
+                            <div class=" clearfix">
+                                <div class="form-group">
+                                    <label class="control-label">{{ 'IMAGE_LABEL' | translate}}</label>
+                                    <input class="form-control"  ng-model="model.image" type="text">
+                                    <br>
+                                </div>
+                            </div>   
+
+                            <ul class="nav nav-pills">
+		                        <li class="active">
+		                        	<a href="#pills-3"  data-toggle="tab" aria-expanded="false">
+		                        		{{ 'CATEGORIES_LABEL' | translate}}
+		                        	</a>
+		                        </li>
+		                     
+		                        <li class="">
+		                            <a href="#pills-5"  data-toggle="tab" aria-expanded="false">
+		                                {{ 'TAGS_LABEL' | translate}}
+		                            </a>
+		                        </li>
+		                    </ul> 
+		                    <div class="tab-content">
+			                    <div class="tab-pane active" id="pills-3">
+
+									<div class="col-md-2 "  ng-repeat="item in todos">
+			                           
+			                                <div class="app-checkbox" > 
+			                                    <label>
+			                                    	<input ng-model="item.checked"  name="app-checkbox-1" type="checkbox"> 
+			                                    	{{item.title}}
+			                                        <span></span>
+			                                    </label> 
+			                                </div>
+			                               
+			                            </div>
+			                        </div>
+			                        <div class="tab-pane" id="pills-5">
+
+			                            <div class="col-md-2 " ng-repeat="item in tags">
+			                           
+			                                <div  class="app-checkbox" > 
+			                                    <label>
+			                                        <input ng-model="item.checked"  name="app-checkbox-1" type="checkbox"> 
+			                                        {{item.title}}
+			                                        <span></span>
+			                                    </label> 
+			                                </div>
+			                               
+			                            </div>
+			                        </div>      
+				           		</div>
+			           		</div>
 	            	</div>
 	        	</div>
 	        </div>                            

@@ -78,15 +78,12 @@ define(['angular'],function(angular){
             'TAGS_LABEL':'Tags',
             'PAGES_LABEL':'Pagina',
             'PAGES_PLURAL_LABEL':'Paginas',
-            'GAME_LABEL':'Juego',
-            'GAME_PLURAL_LABEL':'Juegos',
             'VIDEO_LABEL':'Video',
             'VIDEO_PLURAL_LABEL':'Videos',
-            'GAME_ENGINE_LABEL':'Game Engine',
-            'GAME_ENGINE_PLURAL_LABEL':'Game Engines',
             'EXCERPT_LABEL':'Extracto',
             'MEDIA_ALBUM_PLURAL_LABEL':'Media Albums',
             'MEDIA_ALBUM_LABEL':'Media Album',
+            'UPLOAD_LABEL':'Upload',
       });
      
       $translateProvider.preferredLanguage('ES');

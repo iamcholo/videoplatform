@@ -76,16 +76,12 @@ define(['angular'],function(angular){
             'ON_FEED_LABEL':'On Feed?',
             'FEATURED_LABEL':'Featured',
             'TAGS_LABEL':'Tags',
-            'PAGES_LABEL':'Page',
-            'PAGES_PLURAL_LABEL':'Pages',
-            'GAME_LABEL':'Game',
-            'GAME_PLURAL_LABEL':'Games',
+  
             'VIDEO_LABEL':'Video',
             'VIDEO_PLURAL_LABEL':'Videos',
-            'GAME_ENGINE_LABEL':'Game Engine',
-            'GAME_ENGINE_PLURAL_LABEL':'Game Engines',
-            'EXCERPT_LABEL':'Excerpt',
+            'UPLOAD_LABEL':'Upload',
             'MEDIA_ALBUM_PLURAL_LABEL':'Media Albums',
+            'MEDIA_ALBUM_LABEL':'Media Album',
             'MEDIA_ALBUM_LABEL':'Media Album',
       });
      
