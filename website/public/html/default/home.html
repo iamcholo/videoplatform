@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Title</title>
+  <link rel="stylesheet" href="https://releases.flowplayer.org/7.2.4/skin/skin.css">
+
+</head>
+<body>
+
+  <div id="standardvideo" class="flowplayer"></div>
+    <!-- 1. skin -->
+
+
+  <!-- 2. jquery library - required for video tag based installs -->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+  <!-- 3. flowplayer -->
+  <script src="https://releases.flowplayer.org/7.2.4/flowplayer.min.js"></script>
+
+  <script src="//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js"></script>
+    <!-- load the AdSense assets after the Flowplayer assets -->
+  <!-- the IMA SDK -->
+  
+  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+  <!--<script src="https://imasdk.googleapis.com/js/sdkloader/ima3_debug.js"></script>
+  -->
+  <!-- your AdSense plugin (at your server) -->
+  <script
+      src="https://releases.flowplayer.org/asf/flowplayer.com/2.1.9/asf.min.js">
+  </script>
+  
+<!-- install the player with ima AdSense configuration -->
+<script>
+window.onload = function () {
+flowplayer("#standardvideo", {
+     ima: {
+      // make the Google robots crawl the current page
+      description_url: location.href
+    },
+  // configure the AdSense plugin for this player
+  ima: {
+    // must be set when testing your installation, remove or set to false in production
+     adtest: false,
+
+  
+
+    // adverts configuration
+    ads: [{
+      time: 3,
+      ad_type: "skippablevideo"
+    },
+    {
+      time: 35,
+      ad_type: "bumpervideo"
+    }
+    ]
+  },
+
+  splash: false,
+  ratio: 9/16,
+  clip: {
+    sources: [
+    
+      { type: "video/mp4",
+        src:  "/video/{{pk}}" }
+    ]
+  }
+});
+}
+</script>
+</body>
+</html>
