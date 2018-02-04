@@ -18,33 +18,40 @@ require.config({
       "app": "modules/app",
       "router": "vendor/angular-ui-router",
       "translate": "vendor/angular-translate.min",
-      "posts_controllers": "modules/controllers/posts",   
-      "category_controllers": "modules/controllers/category",
-      "tags_controllers": "modules/controllers/tags",
-      "media_controller": "modules/controllers/media",
+      
       "users_controller": "modules/controllers/users",
-      "themes_controllers": "modules/controllers/themes",
-      "comments_controller": "modules/controllers/comments",
-      "login_controller": "modules/controllers/login",
-      "root_routers": "modules/routes/root",
-      "posts_routers": "modules/routes/posts", 
-      "category_routers": "modules/routes/category",
-     
       "user_routers": "modules/routes/users",     
-      "media_routers": "modules/routes/media", 
-      "groups_routers": "modules/routes/groups",
+      "user_services": "modules/services/user",      
+      
+      "root_routers": "modules/routes/root",
+      
+      "posts_routers": "modules/routes/posts",
+      "posts_controllers": "modules/controllers/posts",   
+      "posts_services": "modules/services/posts",
+
+      "themes_controllers": "modules/controllers/themes",
       "themes_routers": "modules/routes/themes",
+      
       "tags_routers": "modules/routes/tags",
-      "comments_routers": "modules/routes/comments",
+      "tags_controllers": "modules/controllers/tags",
+      "tags_services": "modules/services/tags",
+
+      "category_controllers": "modules/controllers/category",
+      "category_routers": "modules/routes/category",
+      "category_services": "modules/services/category",
+
+      "login_controller": "modules/controllers/login",
       "login_routers": "modules/routes/login",
       "login_services": "modules/services/login",
-      "user_services": "modules/services/user",
-      "posts_services": "modules/services/posts",
+
+      "media_controller": "modules/controllers/media",
       "media_services": "modules/services/media",
-     
+      "media_routers": "modules/routes/media", 
+      
+      "comments_controller": "modules/controllers/comments",
+      "comments_routers": "modules/routes/comments",
       "comments_services": "modules/services/comments",
-      "category_services": "modules/services/category",
-      "tags_services": "modules/services/tags",
+            
       "I18N_EN":"modules/I18N/EN",
       "I18N_ES":"modules/I18N/ES",
       "directives":"modules/directives",
@@ -55,8 +62,7 @@ require.config({
       "custom_video_controllers": "modules/controllers/custom/video",
       "custom_video_routers": "modules/routes/custom/video",
       "custom_video_services": "modules/services/custom/video",
-
-  
+      
       "media_album_controllers": "modules/controllers/media_album",
       "media_album_routers": "modules/routes/media_album",
       "media_album_services": "modules/services/media_album",
@@ -84,8 +90,7 @@ require.config({
           'media_controller',
           'media_routers',
           'media_services',
-          'groups_controller',
-          'groups_routers',
+
           'login_controller',
           'login_routers',          
           'login_services',
