@@ -1,0 +1,111 @@
+<div class="row">
+	<div class="col-md-12">
+    
+	    <div class="block block-condensed block">
+	        <!-- START HEADING -->
+	        <div class="app-heading app-heading-small">
+	            <div class="title">
+	                <h5>{{ 'PLAYLIST_LABEL' | translate}}</h5>
+	                <p>{{ 'ADD_VIDEO_LABEL' | translate}}</p>
+	            </div>
+	        </div>
+	        <!-- END HEADING -->
+
+	        <div class="block-content ">
+                <div class="form-group">
+                    <label class="control-label">
+                        {{ 'TITLE_LABEL' | translate}}
+                    </label>
+                    <span>{{model.name}}</span>
+
+
+                    <div class="row">
+                                    
+                        <div class="col-md-10">
+                            <div class="form-group ">
+                            
+                                <div class="input-group">
+                                    <div class="input-group-addon"><span class="fa fa-search"></span></div>
+                                    <input type="text" ng-model="model.query" class="form-control" placeholder="{{ 'SEARCH_LABEL' | translate}}">
+                                    <span class="input-group-btn">
+                                        <button  ng-click="search()" class="btn btn-primary" type="button">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                              
+
+                     <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in filteredTodos" data-id="{{item.id}}">
+                                <td class="app-timeline-item" width="20px;">
+                                    <div class=" padding-top-20" style="height: 102px;">
+                                        <div class="contact contact-bordered contact-xlg margin-bottom-0">
+                                           <img  ng-src="{{item.img}}"  alt="{{item.title}}">
+                                        </div>
+                                    </div>
+                                        
+                                </td>
+                                <td width="75%" >
+                                    <a ui-sref="root.media_edit({id:item.id})" class="btn btn-default preview">
+                                        <strong >{{item.title}}</strong>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="label label-success">
+                                        {{item.status}}
+                                    </span>
+                                </td>
+
+                             
+                                <td>
+                                    <a ui-sref="root.media_edit({id:item.id})" class="btn btn-primary">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                        {{ 'EDIT_LABEL' | translate}}
+                                    </a>
+                                    <a ng-click="DELETE(item.id)" class="btn btn-danger">
+                                         <i class="fa fa-trash"></i>
+                                    </a>
+
+                                </td>
+                          
+                          
+                        </tr>
+                         
+                    </tbody>
+                </table>
+
+
+       
+                <nav ng-show="todos.length > itemsPerPage">
+
+
+                    <paging
+                      page="currentPage" 
+                      page-size="itemsPerPage" 
+                      total="todos.length"
+                      pg-href="#/custom/videos/page/{page}"
+                      show-prev-next="true"
+                      show-first-last="true"
+                      class="pagination pagination-noborder"
+                        paging-action="pageChanged(page)"
+                      >
+                    </paging>  
+           
+                </nav>
+
+                </div>
+	        </div>                            
+	    </div>
+    
+	</div>
+
+</div>

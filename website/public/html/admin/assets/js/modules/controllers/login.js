@@ -7,7 +7,7 @@ define(['angular'],function(angular){
 	  	
 	  	if($cookies.get('access_token'))
 	  		{
-	  			$state.go('root.posts');
+	  			$state.go('root.media');
 	  		}
 	  	$scope.model = {'username':'','password':''};
 	  	$scope.login = function()
@@ -34,7 +34,7 @@ define(['angular'],function(angular){
 	        	
 	        		
 	        		
-	        		$state.go('root.posts');
+	        		$state.go('root.media');
 	        	}
 	            
 	        }, function errorCallback(response) {});;

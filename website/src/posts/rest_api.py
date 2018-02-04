@@ -368,11 +368,11 @@ def category(request):
 
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def playlist_list(request):
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         playlist = Playlist.objects.all()
         serializer = PlaylistSerializer(
             playlist, 

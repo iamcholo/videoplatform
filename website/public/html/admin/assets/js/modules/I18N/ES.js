@@ -85,6 +85,7 @@ define(['angular'],function(angular){
             'MEDIA_ALBUM_LABEL':'Media Album',
             'UPLOAD_LABEL':'Upload',
             'PLAYLIST_LABEL':'Lista',
+            'ADD_VIDEO_LABEL':'Agregar Video',
             'PLAYLIST_PLURAL_LABEL':'Listas',
       });
      
