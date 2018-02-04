@@ -112,7 +112,10 @@ def post_list(request):
     if request.method == 'POST':
         post_type = request.data.get('post_type','post')
 
-        posts = PostItem.objects.filter(post_type=post_type).order_by('-id')
+        posts = PostItem.objects.filter(
+            post_type=post_type,
+            autor=request.user
+        ).order_by('-id')
         serializer = PostItemSerializer(
             posts, 
             many=True,
@@ -548,6 +551,7 @@ def get_video(request):
         pk = request.data.get('playlist_id')
         posts = PostItem.objects.filter(
             post_type=post_type,
+            autor=request.user,
             playlist__pk=int(pk)
         ).order_by('-id')
         serializer = PostItemSerializer(

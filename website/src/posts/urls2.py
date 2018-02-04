@@ -37,16 +37,7 @@ urlpatterns = [
             name='videos'
         ),
 
-    url(r'^game-engines/{0,1}$',
-            views.games_engines,
-            name='games_engines'
-        ),
-
-    url(r'^game-engines/page/(?P<page>\d+)/{0,1}$',
-            views.games_engines,
-            name='games_engines'
-        ),
-
+   
     url(r'^search/{0,1}$',
             views.search,
             name='search'
@@ -86,7 +77,7 @@ urlpatterns = [
            views.tags,
            name='posts_tags'
     ),
-
+    """"
     url(r'^(?P<slug>[0-9A-Za-z-_]+)/(?P<sub_slug>[0-9A-Za-z-_]+)/page/(?P<page>\d+)/{0,1}$',
         views.tags_sub_tag,
         name='posts_tags_sub_tag'
@@ -113,7 +104,8 @@ urlpatterns = [
         views.year_month_archive,
         name='year_month_archive'
     ),
-
+      """
+      
     url(r'^archive/(?P<year>[0-9A-Za-z-_]+)/(?P<month>[0-9A-Za-z-_]+)/{0,1}$',
            views.year_month_archive,
            name='year_month_archive'
