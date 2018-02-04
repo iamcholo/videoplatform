@@ -7,10 +7,12 @@ define(['angular','jquery'],function(angular,jquery){
         return {
             templateUrl: '/admin/assets/js/modules/templates/includes/dropzone.html',
             replace: true,
-            scope: { confirmAction: '&',progresss:'@'},
+            scope: { confirmAction: '&',progresss:'@',elementId:'='},
            
             link: function(scope, element, attrs, ngModel) {
                 
+                
+
                 var open_uploader = function (e)
                 {  
                   e.preventDefault();
@@ -74,7 +76,11 @@ define(['angular','jquery'],function(angular,jquery){
                     }
                     var stop = $interval(debuguploading, 10)
                     Media.New(fd).then(function successCallback(response){
-                       scope.confirmAction();
+                       
+
+                       scope.elementId = response.data.id;
+                        $timeout( scope.confirmAction, 1000);     
+                    
                        
                     });
 

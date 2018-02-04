@@ -136,7 +136,7 @@ def image_create(request):
         image.content = filenamex
         image.save()
     return Response(
-                status=status.HTTP_204_NO_CONTENT
+                {'id':image.id}
             )
 
 @api_view(['POST'])

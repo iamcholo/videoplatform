@@ -96,7 +96,9 @@ angular.module('app.services.media', [] )
                 url: url,
                 withCredentials: this.use_session,
                 method: method.toUpperCase(),
-                headers: {'Content-Type': undefined},
+                headers: {
+                    'Content-Type': undefined,
+                    'Authorization': 'Token '+$cookies.get('access_token'),},
                 params: params,
                 uploadEventHandlers: {
                     progress: function(e)

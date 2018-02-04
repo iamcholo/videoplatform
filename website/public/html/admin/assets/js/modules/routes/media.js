@@ -11,7 +11,7 @@ define(['angular'],function(angular){
           views: {
           'content': {
               templateUrl: '/admin/assets/js/modules/templates/media/upload.html',
-              controller: 'MediaListCtrl'
+              controller: 'MediaNewCtrl'
              
             } 
           }
