@@ -538,3 +538,24 @@ def playlist_video_list(request):
     return Response(
             status=status.HTTP_204_NO_CONTENT
         )
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def get_video(request):
+        
+    if request.method == 'POST':
+        post_type = request.data.get('post_type','post')
+        pk = request.data.get('playlist_id')
+        posts = PostItem.objects.filter(
+            post_type=post_type,
+            playlist__pk=int(pk)
+        ).order_by('-id')
+        serializer = PostItemSerializer(
+            posts, 
+            many=True,
+            context={'request': request}
+        )
+        return Response(serializer.data)
+    return Response(
+            status=status.HTTP_204_NO_CONTENT
+        )
