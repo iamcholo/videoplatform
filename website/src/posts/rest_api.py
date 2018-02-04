@@ -17,6 +17,7 @@ from rest_framework import generics
 from posts.models import PostCategory
 from posts.models import PostItem
 from globaly.models import GlobalyTags
+from posts.models import Playlist
 from globaly.rest_api import GlobalyTagsSerializer
 from django.contrib.auth.models import User
 from user.rest_authentication import IsAuthenticated
@@ -48,6 +49,21 @@ class PostCategorySerializer(serializers.HyperlinkedModelSerializer):
             'created', 
             'modified',
         )
+
+class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Playlist
+        fields =    (
+            'id', 
+            'name',
+            'slug',
+            'meta_title',
+            'meta_description',
+            'publish',
+            'created', 
+            'modified',
+        )
+
 
 class PostItemSerializer(serializers.HyperlinkedModelSerializer):
     categories_lists = PostCategorySerializer(source='categories', many=True, read_only = True)
@@ -341,6 +357,92 @@ def category(request):
 
         if request.method == 'DELETE':
             category.delete()
+            return Response(
+                status=status.HTTP_204_NO_CONTENT
+            )
+
+    return Response(
+            serializer.errors, 
+            status=status.HTTP_400_BAD_REQUEST
+        )    
+
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def playlist_list(request):
+
+    if request.method == 'GET':
+        playlist = Playlist.objects.all()
+        serializer = PlaylistSerializer(
+            playlist, 
+            many=True,
+            context={'request': request}
+        )
+        return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def playlist_details(request):
+    if request.method == 'POST':
+        try:
+            pk = request.data.get('id')
+            playlist = Playlist.objects.get(
+                pk=pk
+            )
+        except Playlist.DoesNotExist:
+            return Response(
+                status=status.HTTP_404_NOT_FOUND
+            )
+        serializer = PlaylistSerializer(
+            playlist,
+            context={'request': request}
+        )
+        return Response(serializer.data)
+    return Response(
+                status=status.HTTP_204_NO_CONTENT
+            )
+
+
+@api_view(['PUT','POST','DELETE'])
+@permission_classes((IsAuthenticated,))
+def playlist(request):
+    
+    if request.method == 'POST':
+        serializer = PlaylistSerializer(
+            data=request.data,
+            context={'request': request}
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(
+            serializer.errors, 
+            status=status.HTTP_400_BAD_REQUEST
+        )      
+    if request.method == 'PUT' or request.method == 'DELETE':
+        try:
+            pk = request.data.get('id')
+            playlist = Playlist.objects.get(
+                pk=int(pk)
+            )
+        except Playlist.DoesNotExist:
+            return Response(
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        if request.method == 'PUT':
+            serializer = PlaylistSerializer(
+                playlist,
+                data=request.data,
+                context={'request': request}
+            )
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+
+        if request.method == 'DELETE':
+            playlist.delete()
             return Response(
                 status=status.HTTP_204_NO_CONTENT
             )

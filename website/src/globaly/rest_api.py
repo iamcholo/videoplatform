@@ -106,25 +106,7 @@ def tag(request):
             )
             if serializer.is_valid():
                 serializer.save()
-                instance = serializer.instance
-                try:
-                    f1 = Q(app_label='globaly')
-                    f2 = Q(model='GlobalyTags')
-                    i = ContentType.objects.get(
-                        f1 & f2
-                        )
-                         
-                    cType = ContentType.objects.get_for_model(
-                        i.get_object_for_this_type(id=pk)
-                    )
-                    parent = NavigationItem.objects.filter(
-                        object_id=pk,
-                        content_type=cType,
-                        view_name='tags'
-                    ).update(slug=request.data.get('slug')) 
-                                   
-                except ObjectDoesNotExist:
-                    return None
+                
                 return Response(serializer.data)
 
         if request.method == 'DELETE':

@@ -7,8 +7,9 @@ urlpatterns = [
 	url(r'^posts/{0,1}$', views.post_list),
 	url(r'^post/{0,1}$', views.post),
 	url(r'^post/upload/{0,1}$', views.upload_create),
-
-	
+	url(r'^playlists/{0,1}$', views.playlist_list),
+	url(r'^playlist/{0,1}$', views.playlist),
+	url(r'^playlist/details/{0,1}$', views.playlist_details),
 	url(r'^post/details/{0,1}$', views.post_details),
 	url(r'^pages/{0,1}$', views.post_list),
 	url(r'^page/{0,1}$', views.post),

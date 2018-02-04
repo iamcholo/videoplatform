@@ -25,9 +25,9 @@ require.config({
       
       "root_routers": "modules/routes/root",
       
-      "posts_routers": "modules/routes/posts",
-      "posts_controllers": "modules/controllers/posts",   
-      "posts_services": "modules/services/posts",
+      "playlist_routers": "modules/routes/playlist",
+      "playlist_controllers": "modules/controllers/playlist",   
+      "playlist_services": "modules/services/playlist",
 
       
       "tags_routers": "modules/routes/tags",
@@ -96,9 +96,9 @@ require.config({
           'users_controller',
           'user_services',
           'user_routers',
-          'posts_controllers',
-          'posts_routers',
-          'posts_services',
+          'playlist_controllers',
+          'playlist_routers',
+          'playlist_services',
           'category_controllers',
           'category_routers',
           'category_services',
@@ -164,7 +164,7 @@ require.config({
       'services': {
         deps: ['angular']
       },
-      'posts_controllers': {
+      'playlist_controllers': {
         deps: ['angular']
       },
 
@@ -195,7 +195,7 @@ require.config({
       'media_routers': {
         deps: ['angular']
       },
-      'posts_routers': {
+      'playlist_routers': {
         deps: ['angular']
       },
       'root_routers': {
@@ -210,9 +210,14 @@ require.config({
       'user_services': {
         deps: ['angular']
       },
-      'posts_services': {
+      'playlist_services': {
         deps: ['angular']
       },
+      
+      'playlist_routers': {
+        deps: ['angular']
+      },
+      
       'login_directive': {
         deps: ['angular']
       },

@@ -99,6 +99,29 @@ class PostCategory(MPTTModel, BaseDateTime, BasePublish, BaseSeo):
         db_table = 'posts_categories'
         app_label = 'posts'
 
+
+
+class Playlist(BasePublish,BaseDateTime, BaseSeo):
+
+    name = models.CharField(
+            _('NAME_LABEL'),
+            max_length=255,
+            unique=True,
+            blank=True      
+        )
+    
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        verbose_name = _('Playlist')
+        verbose_name_plural = _('Playlists')
+        get_latest_by = 'created'
+        ordering = ('-id',)
+        db_table = 'playlist'
+        app_label = 'posts'
+
+
+
 class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured, BaseSeo):
 
     autor = models.ForeignKey(
@@ -110,7 +133,12 @@ class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured, BaseSeo):
             related_name='post_item_autor'
         )
 
-
+    playlist = models.ManyToManyField(
+            Playlist,
+            verbose_name=_('BLOG_PLAYLIST_TITLE_PLURAL'),
+            related_name='post_item_related_playlist',
+            blank=True
+        )
     categories = models.ManyToManyField(
             PostCategory,
             verbose_name=_('BLOG_CATEGORY_TITLE_PLURAL'),

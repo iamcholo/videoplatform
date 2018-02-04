@@ -76,13 +76,14 @@ define(['angular'],function(angular){
             'ON_FEED_LABEL':'On Feed?',
             'FEATURED_LABEL':'Featured',
             'TAGS_LABEL':'Tags',
-  
             'VIDEO_LABEL':'Video',
             'VIDEO_PLURAL_LABEL':'Videos',
             'UPLOAD_LABEL':'Upload',
             'MEDIA_ALBUM_PLURAL_LABEL':'Media Albums',
             'MEDIA_ALBUM_LABEL':'Media Album',
             'MEDIA_ALBUM_LABEL':'Media Album',
+            'PLAYLIST_LABEL':'Playlist',
+            'PLAYLIST_PLURAL_LABEL':'Playlists',
       });
      
       $translateProvider.preferredLanguage('en');
