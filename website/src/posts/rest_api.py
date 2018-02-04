@@ -141,10 +141,7 @@ def upload_create(request):
         )
  
         image = PostItem()
-        image.title = request.data.get('name',None) or filenamex   
-        image.slug =  defaultfilters.slugify(image.title )
-        image.meta_title = image.title
-        image.meta_description = image.title  
+        image.title = request.data.get('name',None) or filenamex 
         image.autor = request.user
         image.post_type = "video"
         image.video = filename

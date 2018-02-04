@@ -122,7 +122,7 @@ class Playlist(BasePublish,BaseDateTime, BaseSeo):
 
 
 
-class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured, BaseSeo):
+class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured):
 
     autor = models.ForeignKey(
             User,
