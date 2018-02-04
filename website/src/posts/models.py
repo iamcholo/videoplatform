@@ -15,7 +15,7 @@ from utilities.models import BasePublish
 from utilities.models import BaseSeo
 from globaly.models import GlobalyTags
 from globaly.models import get_meta
-from media.models import MediaAlbum
+
 from django.db import connection
 from django.utils import timezone
 from django.db.models import Count
@@ -27,7 +27,7 @@ from django.db.models.signals import post_save
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
-from navigation.models import NavigationItem
+
 
 POST_TYPES_CHOICES = (
 
@@ -110,12 +110,6 @@ class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured, BaseSeo):
             related_name='post_item_autor'
         )
 
-    album = models.ManyToManyField(
-            MediaAlbum,
-            verbose_name=_('MEDIA_ALBUM_TITLE_PLURAL'),
-            related_name='post_item_related_albums',
-            blank=True
-        )
 
     categories = models.ManyToManyField(
             PostCategory,
@@ -159,7 +153,11 @@ class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured, BaseSeo):
             choices=POST_TYPES_CHOICES,
             default="post"
         )
-
+    video = models.TextField(
+        _('Video'),
+       
+         blank=True      
+        )
 
 
     def __unicode__(self):
@@ -302,43 +300,3 @@ class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured, BaseSeo):
         app_label = 'posts'
 
 
-@receiver(post_save, sender=PostItem)
-def updating_post_nav_slug(sender, instance, **kwargs):
-    post = instance # 
-    try:
-        f1 = Q(app_label='posts')
-        
-        f2 = Q(model='PostItem')
-        i = ContentType.objects.get(
-            f1 & f2
-            )
-        i.get_object_for_this_type(id=instance.id)
-        cType = ContentType.objects.get_for_model(i)
-        parent = NavigationItem.objects.filter(
-            object_id=i.id,
-            content_type=cType,
-            view_name='posts_details'
-        ).update(slug=instance.slug)                 
-    except ObjectDoesNotExist:
-        return None    
-
-
-@receiver(post_save, sender=PostCategory)
-def updating_category_nav_slug(sender, instance, **kwargs):
-    post = instance # 
-    try:
-        f1 = Q(app_label='posts')
-        
-        f2 = Q(model='PostCategory')
-        i = ContentType.objects.get(
-            f1 & f2
-            )
-        i.get_object_for_this_type(id=instance.id)
-        cType = ContentType.objects.get_for_model(i)
-        parent = NavigationItem.objects.filter(
-            object_id=i.id,
-            content_type=cType,
-            view_name='category'
-        ).update(slug=instance.slug)                 
-    except ObjectDoesNotExist:
-        return None    

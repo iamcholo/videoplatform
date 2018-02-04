@@ -1,8 +1,8 @@
 define(['angular','jquery'],function(angular,jquery){
  	angular.module('app.controllers.media', [])
  	.controller('MediaNewCtrl', 
-	[ '$scope','$state','$translate','$stateParams','Tags','Category','MediaAlbum','Media',
-	  function ($scope,$state,$translate,$stateParams,Tags,Category,MediaAlbum,Media) 
+	[ '$scope','$state','$translate','$stateParams','Tags','Category','Media',
+	  function ($scope,$state,$translate,$stateParams,Tags,Category,Media) 
 	  {
 
 	  	
@@ -85,8 +85,8 @@ define(['angular','jquery'],function(angular,jquery){
 		}
 
 	}]).controller('MediaEditCtrl', 
-	[ '$scope','$state','$translate','$stateParams','Tags','Category','MediaAlbum','Media',
-	  function ($scope,$state,$translate,$stateParams,Tags,Category,MediaAlbum,Media) 
+	[ '$scope','$state','$translate','$stateParams','Tags','Category','Media',
+	  function ($scope,$state,$translate,$stateParams,Tags,Category,Media) 
 	  {
 
 	  	
@@ -94,6 +94,10 @@ define(['angular','jquery'],function(angular,jquery){
 	  		'title':'',
 	  		'content':'',
 	  		'image':'',
+	  		'publish': true,
+	  		'publish_date': null,
+	  		'is_featured': true,
+	  		'is_on_feed': true,
 	  		'tags_lists': [],
 	  		'categories_lists': [], 
 	  	} 
@@ -105,7 +109,13 @@ define(['angular','jquery'],function(angular,jquery){
 	  			$scope.model.image = response.data.image;
 	  			$scope.model.content = response.data.content;
 	  			$scope.model.tags_lists = response.data.tags_lists;	 	
-	  			$scope.model.album_lists = response.data.albums_lists;	 			
+	  			$scope.model.categories_lists = response.data.categories_lists;	 
+	  			$scope.model.publish_date = response.data.publish_date;
+	  			$scope.model.publish = response.data.publish;
+	  			$scope.model.is_featured = response.data.is_featured;
+	  			$scope.model.is_on_feed = response.data.is_on_feed;
+	  			$scope.model.content = response.data.content;
+	  			$scope.model.excerpt = response.data.excerpt;			
 	  			$scope.makeTodos();
 
 			}, function errorCallback(response) {});
@@ -169,6 +179,11 @@ define(['angular','jquery'],function(angular,jquery){
 
 		 	Media.Update($scope.model);
 		}
+
+		$scope.confirmAction = function(){
+	  		return Media.Get( $stateParams.id );
+	  	}
+
 
 	}])
   

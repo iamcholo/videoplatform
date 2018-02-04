@@ -22,9 +22,8 @@ INSTALLED_APPS = (
     'utilities',   
     'globaly',   
     'posts',
-    'media',
     'global_config',
-    'navigation',
+  
     #'contact_form',
     'comments',   
 

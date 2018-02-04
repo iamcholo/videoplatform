@@ -1,4 +1,10 @@
+
 import json
+import os 
+import sys
+import hashlib
+import time
+
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.conf.urls import url, include
@@ -12,7 +18,6 @@ from posts.models import PostCategory
 from posts.models import PostItem
 from globaly.models import GlobalyTags
 from globaly.rest_api import GlobalyTagsSerializer
-from media.models import MediaAlbum,MediaImage
 from django.contrib.auth.models import User
 from user.rest_authentication import IsAuthenticated
 from django.db.models import Q
@@ -23,7 +28,11 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
-from navigation.models import NavigationItem
+
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.template import defaultfilters
+
 
 class PostCategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -53,9 +62,10 @@ class PostItemSerializer(serializers.HyperlinkedModelSerializer):
             'categories_lists',
             'tags_lists',
             'title',
-            'slug',
-            'meta_title',
-            'meta_description',
+
+            #'slug',
+            #'meta_title',
+            #'meta_description',
             'publish',
             'thumbnail',
             'thumbnail_text',
@@ -86,6 +96,40 @@ def post_list(request):
         )
         return Response(serializer.data)
 
+
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
+def upload_create(request):
+        
+    if request.method == 'PUT':
+        file_name = request.FILES['file']
+        file_path = os.path.join(settings.MEDIA_ROOT, 'uploads')
+        filenamex, file_extension = os.path.splitext(file_name.name)
+        millis = int(round(time.time() * 1000))
+
+        m = hashlib.sha224("%s%d" %(filenamex,millis)).hexdigest()
+        filename = "%s%s" %(m,file_extension)
+        url = 'uploads/%s'% filename
+        file_path = os.path.join(file_path, filename)
+        path = default_storage.save(
+            file_path, 
+            ContentFile(file_name.read())
+        )
+ 
+        image = PostItem()
+        image.title = request.data.get('name',None) or filenamex   
+        image.slug =  defaultfilters.slugify(image.title )
+        image.meta_title = image.title
+        image.meta_description = image.title  
+        image.autor = request.user
+        image.post_type = "video"
+        image.video = url
+        image.content = filenamex
+
+        image.save()
+    return Response(
+                {'id':image.id}
+            )
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
@@ -202,33 +246,10 @@ def post(request):
                 else:
                     serializer.save()
                 instance = serializer.instance
-                try:
-                    f1 = Q(app_label='posts')
-                    f2 = Q(model='PostItem')
-                    i = ContentType.objects.get(
-                        f1 & f2
-                        )
-                    #i.get_object_for_this_type(id=pk)
-                    cType = ContentType.objects.get_for_model( 
-                        i.get_object_for_this_type(id=pk)
-                    )
-                    #custom view codes here in the future implement signal
-                    post_type = request.data.get('post_type','post')
-                    view_name = "post_details"
-                    
-                    if(post_type=="page"):
-                        view_name = "page_details"
-                    
-                    if(post_type=="game"):
-                        view_name = "game_details"
-
-                    parent = NavigationItem.objects.filter(
-                        object_id=pk,
-                        content_type=cType,
-                        view_name=view_name
-                    ).update(slug=request.data.get('slug'))                   
-                except ObjectDoesNotExist:
-                    return None
+                instance.slug =  defaultfilters.slugify(instance.title )
+                instance.meta_title = instance.title
+                instance.meta_description = instance.title
+                instance.save()
                 return Response(serializer.data)
 
         if request.method == 'DELETE':
@@ -315,24 +336,7 @@ def category(request):
             if serializer.is_valid():
                 serializer.save()
                 instance = serializer.instance
-                try:
-                    f1 = Q(app_label='posts')
-                    f2 = Q(model='PostCategory')
-                    i = ContentType.objects.get(
-                        f1 & f2
-                        )
-                         
-                    cType = ContentType.objects.get_for_model(
-                        i.get_object_for_this_type(id=pk)
-                    )
-                    parent = NavigationItem.objects.filter(
-                        object_id=pk,
-                        content_type=cType,
-                        view_name='category'
-                    ).update(slug=request.data.get('slug')) 
-                                   
-                except ObjectDoesNotExist:
-                    return None
+              
                 return Response(serializer.data)
 
         if request.method == 'DELETE':

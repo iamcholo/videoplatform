@@ -113,43 +113,44 @@ angular.module('app.services.media', [] )
             });
         },
         'list': function(){
-            return this.request({
+            return this.request5({
                 'method': "GET",
-                'url': "/images/"                    
+                'url': "/posts/",
+                'data': {'post_type':'video'}                         
             });
         },
         'New': function(data){
             return this.request2({
                 'method': "PUT",
-                'url': "/image/create/",
+                'url': "/post/upload/",
                 'data': data
             });
         },
         'Save': function(data){
             return this.request5({
                 'method': "POST",
-                'url': "/image/",
+                'url': "/post/",
                 'data': data       
             });
         },
         'Update': function(data){
             return this.request5({
                 'method': "PUT",
-                'url': "/image/",
+                'url': "/post/",
                 'data': data       
             });
         },
         'Get': function(id){
             return this.request5({
                 'method': "POST",
-                'url': "/image/details/",
+                'url': "/post/details/",
                 'data': {'id':id,}                 
             });
         },
         'Delete': function(id){
             return this.request3({
                 'method': "DELETE",
-                'url': "/image/", 
+                'url': "/post/", 
                 'data': {'id':id}             
             });
         },

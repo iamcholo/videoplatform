@@ -22,28 +22,7 @@ define(['angular'],function(angular){
             page:{ value: 1}
           },
         })
-        .state('root.video_edit', {
-          url: '/custom/video/edit/{id:int}',
-          params: {
-            id:{ value: 0}
-          },
-          views: {
-          'content': {
-              controller: 'VideoEditCtrl',
-              templateUrl: '/admin/assets/js/modules/templates/custom/video/edit.html',
-            } 
-          }
-         
-        })  
-        .state('root.video_new', {
-          url: '/custom/video/new',
-          views: {
-          'content': {
-              controller: 'VideoNewCtrl',
-              templateUrl: '/admin/assets/js/modules/templates/custom/video/edit.html',
-            } 
-          }
-        });
+       
       }]);
 
   

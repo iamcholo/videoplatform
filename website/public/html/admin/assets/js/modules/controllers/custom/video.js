@@ -91,7 +91,7 @@ define(['angular','clipboard'],function(angular,clipboard){
 	  	$scope.model = {
 	  		'title':'',
 	  		'publish': true,
-	  		'post_type': 'game',
+	  		'post_type': 'video',
 	  		'publish_date': null,
 	  		'is_featured': true,
 	  		'is_on_feed': true,

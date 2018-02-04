@@ -29,8 +29,6 @@ require.config({
       "posts_controllers": "modules/controllers/posts",   
       "posts_services": "modules/services/posts",
 
-      "themes_controllers": "modules/controllers/themes",
-      "themes_routers": "modules/routes/themes",
       
       "tags_routers": "modules/routes/tags",
       "tags_controllers": "modules/controllers/tags",
@@ -62,10 +60,7 @@ require.config({
       "custom_video_controllers": "modules/controllers/custom/video",
       "custom_video_routers": "modules/routes/custom/video",
       "custom_video_services": "modules/services/custom/video",
-      
-      "media_album_controllers": "modules/controllers/media_album",
-      "media_album_routers": "modules/routes/media_album",
-      "media_album_services": "modules/services/media_album",
+
 
     },
     baseUrl: '/admin/assets/js/',
@@ -94,8 +89,7 @@ require.config({
           'login_controller',
           'login_routers',          
           'login_services',
-          'themes_routers',
-          'themes_controllers',
+
           'comments_controller',          
           'comments_routers',         
           'dashboard',
@@ -117,9 +111,7 @@ require.config({
           'custom_video_controllers',
           'custom_video_routers',
           'custom_video_services',
-          'media_album_controllers',
-          'media_album_routers',
-          'media_album_services',
+
         ]
       },
       
@@ -155,13 +147,7 @@ require.config({
 
 
 
-      'themes_routers': {
-        deps: ['angular']
-      },
-      'themes_controllers': {
-        deps: ['angular']
-      },
-      
+
    
       'angular':{
         exports : "angular",
@@ -283,15 +269,7 @@ require.config({
         deps: ['angular']
       },
       
-      'media_album_controllers': {
-        deps: ['angular']
-      },
-      'media_album_routers': {
-        deps: ['angular']
-      },
-      'media_album_services': {
-        deps: ['angular']
-      },
+
 
 
     },
