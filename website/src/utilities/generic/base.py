@@ -8,7 +8,9 @@ class TemplateView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super(TemplateView, self).get_context_data(**kwargs)
-        context['page'] = self.kwargs.get('page', 1 )        
+        context['page'] = self.kwargs.get('page', 1 ) 
+        context['pk'] = self.kwargs.get('pk', 0 )   
+            
         return context
 
     def render_to_response(self, context, **response_kwargs):

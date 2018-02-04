@@ -48,7 +48,7 @@ urlpatterns = [
         name='robots'
     ),
 
-    url(r'^(?P<slug>[0-9A-Za-z-_]+)/{0,1}$$',
+    url(r'^(?P<pk>\d+)/{0,1}$$',
         TemplateView.as_view(
             template_name='home.html', 
             content_type='text/html'
