@@ -20,7 +20,7 @@ from globaly.models import GlobalyTags
 from posts.models import Playlist
 from globaly.rest_api import GlobalyTagsSerializer
 from django.contrib.auth.models import User
-from user.rest_authentication import IsAuthenticated
+from user.rest_authentication import IsAuthenticated,IsSuperUser
 from django.db.models import Q
 from decimal import Decimal as D
 from django.db.models import Max
@@ -164,6 +164,10 @@ def post_details(request):
             post = PostItem.objects.get(
                 pk=pk
             )
+            if post.autor != request.user:
+                return Response(
+                    status=status.HTTP_404_NOT_FOUND
+                )
         except PostItem.DoesNotExist:
             return Response(
                 status=status.HTTP_404_NOT_FOUND
@@ -215,6 +219,10 @@ def post(request):
             post = PostItem.objects.get(
                 pk=int(pk)
             )
+            if post.autor != request.user:
+                return Response(
+                    status=status.HTTP_404_NOT_FOUND
+                )
         except PostItem.DoesNotExist:
             return Response(
                 status=status.HTTP_404_NOT_FOUND
@@ -325,7 +333,7 @@ def category_details(request):
 
 
 @api_view(['PUT','POST','DELETE'])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,IsSuperUser,))
 def category(request):
     
     if request.method == 'POST':
@@ -339,7 +347,8 @@ def category(request):
         return Response(
             serializer.errors, 
             status=status.HTTP_400_BAD_REQUEST
-        )      
+        )
+
     if request.method == 'PUT' or request.method == 'DELETE':
         try:
             pk = request.data.get('id')
@@ -435,6 +444,10 @@ def playlist(request):
             playlist = Playlist.objects.get(
                 pk=int(pk)
             )
+            if playlist.autor != request.user:
+                return Response(
+                    status=status.HTTP_404_NOT_FOUND
+                )
         except Playlist.DoesNotExist:
             return Response(
                 status=status.HTTP_404_NOT_FOUND
@@ -470,6 +483,10 @@ def add_to_playlist(request):
             post = PostItem.objects.get(
                 pk=pk
             )
+            if post.autor != request.user:
+                return Response(
+                    status=status.HTTP_404_NOT_FOUND
+                )
         except PostItem.DoesNotExist:
             return Response(
                 status=status.HTTP_404_NOT_FOUND
@@ -502,6 +519,10 @@ def remove_from_playlist(request):
             post = PostItem.objects.get(
                 pk=pk
             )
+            if post.autor != request.user:
+                return Response(
+                    status=status.HTTP_404_NOT_FOUND
+                )
         except PostItem.DoesNotExist:
             return Response(
                 status=status.HTTP_404_NOT_FOUND
@@ -531,6 +552,7 @@ def playlist_video_list(request):
         pk = request.data.get('playlist_id')
         posts = PostItem.objects.filter(
             post_type=post_type,
+            autor=request.user,
             playlist__pk=int(pk)
         ).order_by('-id')
         serializer = PostItemSerializer(

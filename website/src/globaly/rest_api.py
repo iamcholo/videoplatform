@@ -57,6 +57,10 @@ def tag_details(request):
             tag = GlobalyTags.objects.get(
                 pk=pk
             )
+            if tag.autor != request.user:
+                return Response(
+                    status=status.HTTP_404_NOT_FOUND
+                )
         except GlobalyTags.DoesNotExist:
             return Response(
                 status=status.HTTP_404_NOT_FOUND
