@@ -35,7 +35,7 @@ define(['angular','clipboard'],function(angular,clipboard){
 				 	this.push({
 			        	id: value.id,
 				        title: value.title,
-				        img: '/admin/assets/img/logo.jpg',
+				        img: value.featured_image,
 				        status: value.publish,
 				        created: value.created,
 				        modified: value.modified,
