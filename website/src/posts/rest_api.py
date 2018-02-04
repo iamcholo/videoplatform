@@ -147,8 +147,8 @@ def upload_create(request):
         image.meta_description = image.title  
         image.autor = request.user
         image.post_type = "video"
-        image.video = url
-        image.content = filenamex
+        image.video = filename
+       
 
         image.save()
     return Response(
