@@ -237,7 +237,7 @@ define(['angular','clipboard'],function(angular,clipboard){
           	});
 
 			Playlist.AddVideo( id,$stateParams.id).then(function successCallback(response){
-	  			$state.go('root.playlist_videos',{'id': $stateParams.id});
+	  			//$state.go('root.playlist_videos',{'id': $stateParams.id});
 			}, function errorCallback(response) {});
           	
 

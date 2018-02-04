@@ -2,8 +2,8 @@ define(['angular'],function(angular){
 
 angular.module('app.services.login', [] )
 .service('Login', [ 
-    '$q', '$http',  '$rootScope', 
-    function ($q, $http, $rootScope) 
+    '$q', '$http',  '$rootScope',"$cookies", 
+    function ($q, $http, $rootScope,$cookies) 
   {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = {
@@ -30,6 +30,30 @@ angular.module('app.services.login', [] )
                 data: data
             });
         },
+          'request2': function(args) 
+        {
+           
+            // Continue
+            params = args.params || {}
+            args = args || {};
+            var deferred = $q.defer(),
+                url = this.API_URL + args.url,
+                method = args.method || "GET",
+                params = params,
+                data = args.data || {};
+            
+            return  $http({
+                url: url,
+                withCredentials: this.use_session,
+                method: method.toUpperCase(),
+                headers: {
+                    'Authorization': 'Token ' + $cookies.get('access_token'),
+                    'Content-Type': 'application/json'
+                },
+                params: params,
+                data: data
+            });
+        },
         'login': function(username, password){
             var data = {
                 'username':username,
@@ -50,7 +74,7 @@ angular.module('app.services.login', [] )
         },
 
         'NewUser': function(data){
-            return this.request({
+            return this.request2({
                 'method': "POST",
                 'url': "/new/user/",
                 'data': data
