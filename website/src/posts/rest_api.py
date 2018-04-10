@@ -129,30 +129,30 @@ def post_list(request):
 def upload_create(request):
         
     if request.method == 'PUT':
-        file_name = request.FILES['file']
+        file_namex = request.FILES['file']
+
         file_path = os.path.join(settings.MEDIA_ROOT, 'uploads')
-        filenamex, file_extension = os.path.splitext(file_name.name)
-        millis = int(round(time.time() * 1000))
-
-        m = hashlib.sha224("%s%d" %(filenamex,millis)).hexdigest()
-        filename = "%s%s" %(m,file_extension)
-        url = 'uploads/%s'% filename
-        file_path = os.path.join(file_path, filename)
-        path = default_storage.save(
-            file_path, 
-            ContentFile(file_name.read())
-        )
- 
-        image = PostItem()
-        image.title = request.data.get('name',None) or filenamex 
-        image.autor = request.user
-        image.post_type = "video"
-        image.video = filename
-       
-
-        image.save()
+        data = []
+        for file_name in file_namex:
+            filenamex, file_extension = os.path.splitext(file_name.name)
+            millis = int(round(time.time() * 1000))
+            m = hashlib.sha224("%s%d" %(filenamex,millis)).hexdigest()
+            filename = "%s%s" %(m,file_extension)
+            url = 'uploads/%s'% filename
+            file_path = os.path.join(file_path, filename)
+            path = default_storage.save(
+                file_path, 
+                ContentFile(file_name.read())
+            )
+            image = PostItem()
+            image.title = request.data.get('name',None) or filenamex 
+            image.autor = request.user
+            image.post_type = "video"
+            image.video = filename
+            image.save()
+            data.append( {'id':image.id})
     return Response(
-                {'id':image.id}
+               data
             )
 
 @api_view(['POST'])
