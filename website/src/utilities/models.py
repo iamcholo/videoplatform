@@ -1,6 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+class BlobField(models.Field):
+    description = "Blob"
+    def db_type(self, connection):
+        return 'blob'
+
 class BaseDateTime(models.Model):
 
     created = models.DateTimeField(_('CREATED_LABEL'), auto_now_add=True)

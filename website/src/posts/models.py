@@ -13,9 +13,10 @@ from utilities.models import BaseArticle
 from utilities.models import BaseThumbnailFeatured
 from utilities.models import BasePublish
 from utilities.models import BaseSeo
+from utilities.models import BlobField
+from globaly.models import GlobalyTags
 from globaly.models import GlobalyTags
 from globaly.models import get_meta
-
 from django.db import connection
 from django.utils import timezone
 from django.db.models import Count
@@ -128,7 +129,6 @@ class Playlist(BasePublish,BaseDateTime, BaseSeo):
         app_label = 'posts'
 
 
-
 class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured):
 
     autor = models.ForeignKey(
@@ -193,6 +193,11 @@ class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured):
        
          blank=True      
         )
+    video_blob = BlobField(
+        _('VideoBlob'),
+         blank=True      
+        )
+
 
 
     def __unicode__(self):
