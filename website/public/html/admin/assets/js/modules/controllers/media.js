@@ -80,8 +80,8 @@ define(['angular','jquery'],function(angular,jquery){
 		$scope.Redirect = function()
 	  	{
 	  		
-
-	  		$state.go('root.media_edit',{'id':$scope.model.id});
+	  		$state.go('root.media');
+	  		//$state.go('root.media_edit',{'id':$scope.model.id});
 		}
 
 	}]).controller('MediaEditCtrl', 
