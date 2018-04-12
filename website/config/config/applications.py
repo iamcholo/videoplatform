@@ -9,6 +9,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'corsheaders',
     'rest_framework',
+     'django_mysql',
     'rest_framework.authtoken',
     'django_markup',
     'captcha',

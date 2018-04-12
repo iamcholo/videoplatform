@@ -4,7 +4,8 @@ import os
 import sys
 import hashlib
 import time
-
+import base64
+import mimetypes
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.conf.urls import url, include
@@ -142,15 +143,19 @@ def upload_create(request):
             file_path2 = file_path +"/"+ filename2
            
             if not os.path.isfile(file_path2):
+                read_file = file_name.read()
                 default_storage.save(
                     file_path2, 
-                    ContentFile(file_name.read())
+                    ContentFile(read_file)
                 )
+                content_type, encoding = mimetypes.guess_type(file_path2)
                 image = PostItem()
                 image.title = request.data.get('name',None) or filenamex 
                 image.autor = request.user
                 image.post_type = "video"
+                #image.mime_type = content_type
                 image.video = filename2
+                #image.video_blob = 
                 image.save()
                 data.append( {'id':image.id})
     return Response(

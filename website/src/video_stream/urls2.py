@@ -14,5 +14,16 @@ urlpatterns = [
             views.stream,
             name='stream'
         ),
+ 
+  
+#   url(r'^video/stream/{0,1}$',
+#            views.stream,
+#            name='stream'
+#        ),
+#    
+#   url(r'^video/stream/(?P<pk>\d+)/{0,1}$',
+#            views.stream,
+#            name='stream'
+#        ),
     
 ]

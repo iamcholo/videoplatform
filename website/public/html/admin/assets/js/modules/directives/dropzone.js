@@ -75,10 +75,11 @@ define(['angular','jquery'],function(angular,jquery){
                         }
                     }
                     var stop = $interval(debuguploading, 10)
-                    Media.New(fd).then(function successCallback(response){
+                    Media.New(fd).then(function successCallback(response)
+                    {
                        
-
-                       scope.elementId = response.data.id;
+                        jquery('#id_files').val(null)
+                        scope.elementId = response.data.id;
                         $timeout( scope.confirmAction, 1000);     
                     
                        

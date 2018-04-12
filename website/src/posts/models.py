@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from django.db import models
 #from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
@@ -13,7 +14,8 @@ from utilities.models import BaseArticle
 from utilities.models import BaseThumbnailFeatured
 from utilities.models import BasePublish
 from utilities.models import BaseSeo
-from utilities.models import BlobField
+from django_mysql.models import SizedBinaryField
+
 from globaly.models import GlobalyTags
 from globaly.models import GlobalyTags
 from globaly.models import get_meta
@@ -193,12 +195,6 @@ class PostItem(BaseArticle, BaseDateTime, BaseThumbnailFeatured):
        
          blank=True      
         )
-    video_blob = BlobField(
-        _('VideoBlob'),
-         blank=True      
-        )
-
-
 
     def __unicode__(self):
         return self.title

@@ -32,6 +32,11 @@
 <!-- install the player with ima AdSense configuration -->
 <script>
 window.onload = function () {
+
+
+  function createObjectURL(object) {
+    return (window.URL) ? window.URL.createObjectURL(object) : window.webkitURL.createObjectURL(object);
+}
 flowplayer("#standardvideo", {
      ima: {
       // make the Google robots crawl the current page

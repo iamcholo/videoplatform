@@ -1,8 +1,12 @@
 from django.http import StreamingHttpResponse
+from django.http import HttpResponse
 from wsgiref.util import FileWrapper
+from django.template.response import TemplateResponse
+from django.core.files.base import ContentFile
 import mimetypes
 import os
 import re
+import base64
 from django.conf import settings
 from posts.models import PostItem
 from django.shortcuts import get_object_or_404
@@ -12,6 +16,9 @@ range_re = re.compile(
     r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', 
     re.I
 )
+
+
+
  
 class RangeFileWrapper (object):
     def __init__(self, filelike, blksize=8192, offset=0, length=None):
@@ -28,6 +35,7 @@ class RangeFileWrapper (object):
         return self
  
     def next(self):
+        
         if self.remaining is None:
             # If remaining is None, we're reading the entire file.
             data = self.filelike.read(self.blksize)
@@ -45,22 +53,26 @@ class RangeFileWrapper (object):
  
 def stream(request, pk=None):
     referer = request.META.get('HTTP_REFERER')
-    if referer is None:
-        raise Http404
+    #if referer is None:
+    #    raise Http404
     
-    if referer.hostname not in settings.ALLOWED_HOSTS:
-        raise Http404
+    #if referer.hostname not in settings.ALLOWED_HOSTS:
+    #    raise Http404
     post = get_object_or_404(PostItem,pk=pk)
 
     file_path = os.path.join(settings.MEDIA_ROOT, 'uploads')
     filename = post.video
     path = os.path.join(file_path, filename)
+    #path = post.video_blob
     range_header = request.META.get('HTTP_RANGE', '').strip()
     range_match = range_re.match(range_header)
     size = os.path.getsize(path)
+    
     content_type, encoding = mimetypes.guess_type(path)
+    
     content_type = content_type or 'application/octet-stream'
     if range_match:
+
         first_byte, last_byte = range_match.groups()
         first_byte = int(first_byte) if first_byte else 0
         last_byte = int(last_byte) if last_byte else size - 1
@@ -75,3 +87,29 @@ def stream(request, pk=None):
         resp['Content-Length'] = str(size)
     resp['Accept-Ranges'] = 'bytes'
     return resp
+
+
+def stream2(request, pk=None):
+    referer = request.META.get('HTTP_REFERER')
+    #if referer is None:
+    #    raise Http404
+    
+    #if referer.hostname not in settings.ALLOWED_HOSTS:
+    #    raise Http404
+    post = get_object_or_404(PostItem,pk=pk)
+
+    file_path = os.path.join(settings.MEDIA_ROOT, 'uploads')
+    filename = post.video
+    path = os.path.join(file_path, filename)
+    content_type, encoding = mimetypes.guess_type(path)
+    file = open(path, "r") 
+
+    context = {
+        'video':base64.encodestring(file.read() ),
+        'content_type': content_type
+    }
+
+    template_name = [
+            'home.html'
+        ]
+    return TemplateResponse(request, template_name, context)
