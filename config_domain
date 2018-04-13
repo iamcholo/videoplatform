@@ -1,21 +1,21 @@
 
 server {
-   server_name gamajuegos.com www.gamajuegos.com;
+   server_name yourdomain.com www.yourdomain.com;
 
    listen 80;
 
    access_log off;
 
    location /assets/ {
-       alias /home/gamajuegosblog/public/static/assets/;
+       alias /home/video_platform/website/public/static/assets/;
    }
 
    location /admin/assets/ {
-      alias /home/gamajuegosblog/public/html/admin/assets/;
+      alias /home/video_platform/website/public/html/admin/assets/;
   }
 
    location /assets/media/uploads/ {
-       alias /home/gamajuegosblog/public/content/media/uploads/;
+       alias /home/video_platform/website/public/content/media/uploads/;
    }
    
    location / {
